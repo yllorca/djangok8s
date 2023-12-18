@@ -1,0 +1,8 @@
+.env
+venv
+*.py[cod]
+__pycache__
+.kube
+.git
+.gitignore
+.env.prod
