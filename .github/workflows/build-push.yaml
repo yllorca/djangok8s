@@ -31,3 +31,4 @@ jobs:
         with:
           push: true
           tags: user/app:latest
+          file: Dockerfile.djangok8s # Especifica el nombre de tu Dockerfile personalizado aquí
