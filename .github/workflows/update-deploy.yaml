@@ -28,7 +28,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: yllorca/django-k8s:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
+          tags: yllorca/django-k8s:latest
           file: Dockerfile.djangok8s # Especifica el nombre de tu Dockerfile personalizado aquí
 
       - name: Set up Kubeconfig
@@ -57,7 +57,7 @@ jobs:
 
       - name: Update Deployment image
         run: |
-          kubectl set image deployment/djangok8s-deployment django-k8s=yllorca/django-k8s:${GITHUB_SHA::7}-${GITHUB_RUN_ID::5}
+          kubectl set image deployment/djangok8s-deployment django-k8s=yllorca/django-k8s:latest
 
       - name: Wait for rollout to finish
         run: |
