@@ -1,6 +1,8 @@
 name: Django Tests and Docker Build & Push
 
 on:
+  workflow_call: # Permite que este flujo de trabajo sea llamado desde otro flujo de trabajo
+  workflow_dispatch:  # Permite ejecutar manualmente este flujo de trabajo
   push:
     branches: [main]
   pull_request:
