@@ -1,3 +1,5 @@
+# Deployments
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -28,6 +30,60 @@ spec:
 
 
 ---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+      volumes: # Esta línea se ha movido a estar dentro de spec.template.spec
+      - name: redis-data
+        persistentVolumeClaim:
+          claimName: redis-data-pvc
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-worker
+  template:
+    metadata:
+      labels:
+        app: celery-worker
+    spec:
+      containers:
+      - name: celery
+        image: yllorca/django-k8s:latest
+        command: ["celery"]
+        args: ["-A", "web_k8s", "worker", "--beat", "-l", "info"]
+        envFrom:
+        - secretRef:
+            name: djangok8s-prod-env
+
+---
+
+# Services
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -41,3 +97,33 @@ spec:
       targetPort: 8000
   selector:
     app: djangok8s-deployment
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: redis
+
+---
+
+# Persistent Storage
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-data-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+

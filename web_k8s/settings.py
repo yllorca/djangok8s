@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
     'post',
 ]
 
@@ -146,6 +148,8 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Redis and Celery Conf
+from web_k8s.celery.conf import *
 
 CELERY_BROKER_URL = "redis://redis_db:6379/0"
 CELERY_RESULT_BACKEND = "redis://redis_db:6379/0"

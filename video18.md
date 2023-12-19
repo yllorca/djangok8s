@@ -36,3 +36,10 @@ El video describe cómo desplegar una aplicación FastAPI mínima en Kubernetes,
    - Una vez que el Load Balancer se ha configurado completamente, se verifica que la aplicación FastAPI está funcionando correctamente accediendo a la dirección IP externa proporcionada por Digital Ocean.
 
 El video se enfoca en mostrar cómo desplegar aplicaciones FastAPI en un entorno de producción en Kubernetes, destacando la importancia de tener imágenes de contenedores preconstruidas y la utilidad de configurar servicios y Load Balancers para exponer la aplicación al exterior. Además, se hace una comparación con la configuración necesaria para proyectos Django, preparando el camino para futuras implementaciones.
+
+
+
+kubectl apply con la bandera --dry-run=client para validar tus cambios antes de aplicarlos realmente:
+````
+kubectl apply --dry-run=client -f k8s/apps/django-k8s-web.yaml
+````
