@@ -8,7 +8,7 @@ on:
 
 jobs:
   test_django:
-    uses: yllorca/djangok8s/.github/workflows/django-test.yaml@main
+    uses: yllorca/djangok8s/.github/workflows/django-test.yaml@django-test
 
   container_builder:
     needs: [django-test]
