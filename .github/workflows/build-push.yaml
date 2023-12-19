@@ -10,7 +10,7 @@ jobs:
   test_django:
     uses: yllorca/djangok8s/.github/workflows/django-test.yaml@main
 
-  container_builder:
+  build_and_push_docker_image:
     needs: [test_django]
     runs-on: ubuntu-latest
     steps:
@@ -31,4 +31,4 @@ jobs:
         with:
           push: true
           tags: yllorca/django-k8s:latest
-          file: Dockerfile.djangok8s # Especifica el nombre de tu Dockerfile personalizado aquí
+          file: Dockerfile.djangok8s
