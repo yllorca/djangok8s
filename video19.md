@@ -91,3 +91,20 @@ Esta integración es muy útil para mantener tus imágenes de Docker actualizada
 python -c "import secrets;print(secrets.token_urlsafe(32))"
 ```
 
+1. **Reconstruir la Imagen de Docker**:
+   ```sh
+   docker build -t yllorca/django-k8s:latest .
+   ```
+
+2. **Subir la Nueva Imagen al Registro**:
+   ```sh
+   docker push yllorca/django-k8s:latest
+   ```
+
+3. **Actualizar los Despliegues en Kubernetes**:
+   Puedes actualizar tus despliegues para que usen la nueva imagen con el siguiente comando:
+   ```sh
+   kubectl rollout restart deployment djangok8s-deployment
+   kubectl rollout restart deployment celery-worker
+   ```
+   Esto reiniciará los pods con la nueva imagen que contiene la biblioteca `redis`.

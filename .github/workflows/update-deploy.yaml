@@ -54,18 +54,18 @@ jobs:
           POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}
           POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}
           EOF
-          kubectl delete secret djangok8s-prod-env --ignore-not-found=true
-          kubectl create secret generic djangok8s-prod-env --from-env-file=./.env.prod
+          kubectl delete secret djangok8s-prod-env --ignore-not-found=true -n djangok8s
+          kubectl create secret generic djangok8s-prod-env --from-env-file=./.env.prod -n djangok8s
 
       - name: Update Deployment image
         run: |
-          kubectl set image deployment/djangok8s-deployment django-k8s=yllorca/django-k8s:latest
+          kubectl set image deployment/djangok8s-deployment django-k8s=yllorca/django-k8s:latest -n djangok8s
 
       - name: Wait for rollout to finish
         run: |
-          kubectl rollout status deployment/djangok8s-deployment
+          kubectl rollout status deployment/djangok8s-deployment -n djangok8s
 
       - name: Post-build Django Commands
         run: |
-          export SINGLE_POD_NAME=$(kubectl get pod -l app=djangok8s-deployment -o jsonpath="{.items[0].metadata.name}")
+          export SINGLE_POD_NAME=$(kubectl get pod -l app=djangok8s-deployment -o jsonpath="{.items[0].metadata.name}" -n djangok8s)
           # Aquí agregas los comandos adicionales que necesitas ejecutar en el pod

@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: djangok8s-deployment
+  namespace: djangok8s
   labels:
     app: djangok8s-deployment
 spec:
@@ -35,6 +36,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
+  namespace: djangok8s
 spec:
   selector:
     matchLabels:
@@ -61,6 +63,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: celery-worker
+  namespace: djangok8s
 spec:
   replicas: 1
   selector:
@@ -88,6 +91,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: djangok8s-service
+  namespace: djangok8s
 spec:
   type: LoadBalancer
   ports:
@@ -104,6 +108,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis-service
+  namespace: djangok8s
 spec:
   type: ClusterIP
   ports:
@@ -120,6 +125,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: redis-data-pvc
+  namespace: djangok8s
 spec:
   accessModes:
     - ReadWriteOnce
