@@ -8,3 +8,4 @@ requests
 celery
 django-celery-beat
 django-celery-results
+redis
