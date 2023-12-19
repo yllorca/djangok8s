@@ -8,10 +8,10 @@ on:
 
 jobs:
   test_django:
-    uses: yllorca/django-k8s/.github/workflows/test-django.yaml@main
+    uses: yllorca/djangok8s/.github/workflows/django-test.yaml@main
 
   container_builder:
-    needs: [test_django]
+    needs: [django-test]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
