@@ -155,5 +155,8 @@ CELERY_BROKER_URL = "redis://redis-service:6379/0"
 CELERY_RESULT_BACKEND = "redis://redis-service:6379/0"
 
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+# Configuración para el proxy reverso
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
