@@ -93,7 +93,7 @@ python -c "import secrets;print(secrets.token_urlsafe(32))"
 
 1. **Reconstruir la Imagen de Docker**:
    ```sh
-   docker build -t yllorca/django-k8s:latest .
+   docker build -t yllorca/django-k8s:latest -f Dockerfile.djangok8s .
    ```
 
 2. **Subir la Nueva Imagen al Registro**:
@@ -104,7 +104,8 @@ python -c "import secrets;print(secrets.token_urlsafe(32))"
 3. **Actualizar los Despliegues en Kubernetes**:
    Puedes actualizar tus despliegues para que usen la nueva imagen con el siguiente comando:
    ```sh
-   kubectl rollout restart deployment djangok8s-deployment
-   kubectl rollout restart deployment celery-worker
+   kubectl -n djangok8s rollout restart deployment djangok8s-deployment
+   kubectl -n djangok8s rollout restart deployment celery-worker
+   kubectl -n djangok8s rollout restart deployment redis
    ```
    Esto reiniciará los pods con la nueva imagen que contiene la biblioteca `redis`.

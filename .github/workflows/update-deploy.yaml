@@ -60,11 +60,13 @@ jobs:
 
       - name: Update Deployment image
         run: |
-          kubectl set image deployment/djangok8s-deployment django-k8s=yllorca/django-k8s:latest -n djangok8s
+          kubectl -n djangok8s set image deployment/djangok8s-deployment django-k8s=yllorca/django-k8s:latest
+          kubectl -n djangok8s set image deployment/celery-worker celery=yllorca/django-k8s:latest
 
       - name: Wait for rollout to finish
         run: |
-          kubectl rollout status deployment/djangok8s-deployment -n djangok8s
+          kubectl -n djangok8s rollout restart deployment/djangok8s-deployment
+          kubectl -n djangok8s rollout restart deployment/celery-worker
 
       - name: Post-build Django Commands
         run: |

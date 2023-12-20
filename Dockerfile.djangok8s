@@ -1,7 +1,7 @@
 FROM python:3.9.10-slim
 
 # Install os-level dependencies (as root)
-RUN apt-get update
+RUN apt-get update && apt-get install -y nano
 
 # Create a directory for the source code and use it as base path
 WORKDIR /home/yllorca/dockerdir/djangok8s/
