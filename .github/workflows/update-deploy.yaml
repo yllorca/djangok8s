@@ -32,6 +32,7 @@ jobs:
             yllorca/django-k8s:${{ github.sha }}
             yllorca/django-k8s:latest
           file: Dockerfile.djangok8s
+          no-cache: true  # Deshabilita el uso de caché
 
       - name: Set up Kubeconfig
         run: |
