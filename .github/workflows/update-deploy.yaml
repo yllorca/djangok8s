@@ -68,7 +68,3 @@ jobs:
           kubectl -n djangok8s rollout restart deployment/djangok8s-deployment
           kubectl -n djangok8s rollout restart deployment/celery-worker
 
-      - name: Post-build Django Commands
-        run: |
-          export SINGLE_POD_NAME=$(kubectl get pod -l app=djangok8s-deployment -o jsonpath="{.items[0].metadata.name}" -n djangok8s)
-          # Aquí agregas los comandos adicionales que necesitas ejecutar en el pod

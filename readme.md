@@ -100,3 +100,34 @@ kubectl config current-context
 Este paso te asegurará que estás trabajando con el clúster correcto para el proyecto seleccionado.
 
 
+## instalando habilitando ingress y ssl:
+
+### Paso 2: Inicializar Helm y Agregar Repositorios
+Una vez que Helm esté instalado, puedes agregar repositorios de Helm.
+Esto te permite instalar charts desde esos repositorios. 
+Por ejemplo, para agregar el repositorio de cert-manager:
+
+```
+helm repo add jetstack https://charts.jetstack.io
+helm repo update
+```
+
+## Paso 3: Usar Helm para Instalar Aplicaciones en tu Clúster
+
+debo tener activo de cluster para eso 
+
+````
+kubeconfig-djangok8s
+helm install cert-manager jetstack/cert-manager --namespace cert-manager --create-namespace --version v1.6.1 --set installCRDs=true
+kubectl get pods --namespace cert-manager
+````
+
+
+debemos instalar manualmente ingress controler:
+
+
+````
+helm install nginx-ingress ingress-nginx/ingress-nginx --namespace ingress-nginx
+
+````
+
